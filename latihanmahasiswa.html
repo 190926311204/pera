@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Modul 3 - Data Mahasiswa</title>
+    <style>
+        body {
+            background-color: rgb(255, 206, 240); /* pink */
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            min-width: 600px;
+        }
+        h2, h3 {
+            text-align: center;
+            margin: 5px 0;
+        }
+        hr {
+            border: 0;
+            border-top: 2px solid #000;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        /* Mengatur lebar kolom label */
+        td:first-child {
+            width: 200px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        td:nth-child(2) {
+            width: 20px;
+            text-align: center;
+        }
+        input[type="text"], select, textarea {
+            width: 300px;
+        }
+        textarea {
+            height: 60px;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 10px;
+            padding-left: 150px;
+        }
+        /* Style untuk Output Hasil */
+        #hasil-output {
+            margin-top: 20px;
+            border-top: 1px dashed #000;
+            padding-top: 10px;
+            display: none; /* Sembunyikan sebelum tombol diklik */
+        }
+        .output-title {
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Data Mahasiswa</h3>
+        <h3>Smk al ghiffari</h3>
+        <hr>
+
+        <form name="formMhs">
+            <table>
+                <tr>
+                    <td>NIM</td>
+                    <td>:</td>
+                    <td><input type="text" name="nim" value="190407"></td> </tr>
+                <tr>
+                    <td>Nama Mahasiswa</td>
+                    <td>:</td>
+                    <td><input type="text" name="nama" value="pera ameliya"></td> </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>:</td>
+                    <td>
+                        <select name="jk">
+                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Agama</td>
+                    <td>:</td>
+                    <td>
+                        <select name="agama">
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td>
+                        <input type="radio" name="status" value="Kawin"> Kawin
+                        <input type="radio" name="status" value="Tidak Kawin" checked> Tidak Kawin
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jurusan</td>
+                    <td>:</td>
+                    <td>
+                        <select name="jurusan">
+                            <option value="Teknik Informatika">rpl</option>
+                            <option value="Sistem Informasi">mpp</option>
+                            <option value="Desain Komunikasi Visual">fkk</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Komentar</td>
+                    <td>:</td>
+                    <td>
+                        <textarea name="komentar">HAi...aku senang bisa kuliah di jurusan rpl. bagaimana dengan kamu?????</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="btn-container">
+                            <input type="button" value="kirim" onclick="tampilData()">
+                            <input type="reset" value="ulang">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <div id="hasil-output">
+            <span class="output-title">Data Mahasiswa smk al ghiffari</span>
+            <table>
+                <tr>
+                    <td>NIM</td> <td>:</td> <td><span id="out_nim"></span></td>
+                </tr>
+                <tr>
+                    <td>Nama Mahasiswa</td> <td>:</td> <td><span id="out_nama"></span></td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td> <td>:</td> <td><span id="out_jk"></span></td>
+                </tr>
+                <tr>
+                    <td>Agama</td> <td>:</td> <td><span id="out_agama"></span></td>
+                </tr>
+                <tr>
+                    <td>Status</td> <td>:</td> <td><span id="out_status"></span></td>
+                </tr>
+                <tr>
+                    <td>Jurusan</td> <td>:</td> <td><span id="out_jurusan"></span></td>
+                </tr>
+                <tr>
+                    <td>Komentar</td> <td>:</td> <td><span id="out_komentar"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function tampilData() {
+            // 1. Ambil data dari elemen form
+            var nim = document.formMhs.nim.value;
+            var nama = document.formMhs.nama.value;
+            var jk = document.formMhs.jk.value;
+            var agama = document.formMhs.agama.value;
+            var jurusan = document.formMhs.jurusan.value;
+            var komentar = document.formMhs.komentar.value;
+            
+            // 2. Ambil data Radio Button (Status)
+            var status = "";
+            var radioStatus = document.getElementsByName('status');
+            for (var i = 0; i < radioStatus.length; i++) {
+                if (radioStatus[i].checked) {
+                    status = radioStatus[i].value;
+                    break;
+                }
+            }
+
+            // 3. Masukkan data ke dalam elemen Output
+            document.getElementById("out_nim").innerText = nim;
+            document.getElementById("out_nama").innerText = nama;
+            document.getElementById("out_jk").innerText = jk;
+            document.getElementById("out_agama").innerText = agama;
+            document.getElementById("out_status").innerText = status;
+            document.getElementById("out_jurusan").innerText = jurusan;
+            document.getElementById("out_komentar").innerText = komentar;
+
+            // 4. Tampilkan Div Output
+            document.getElementById("hasil-output").style.display = "block";
+        }
+    </script>
+</body>
+</html>
