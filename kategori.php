@@ -1,4 +1,4 @@
-
+Kategori.php
 <?php
  session_start();
 
@@ -6,7 +6,7 @@
 
  if($_SESSION['level']!= 'admin') {
     header("location:../login.php");
-    exit
+    exit;
  }
 
  //fungsi tambah kategori
@@ -99,8 +99,6 @@
    
 
 ?>
-
-            <!-- DATA CONTOH -->
             <tr>
                 <td><?= $no++;?></td>
                 <td><?= $data['nama_kategori'];?></td>
