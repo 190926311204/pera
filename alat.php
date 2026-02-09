@@ -1,4 +1,4 @@
-
+Alat.php
 <?php
   session_start();
   include "../config/koneksi.php";
@@ -6,6 +6,32 @@
     header("location:../login.php");
     exit;
   }
+// Fungsi tambah
+If (isset($_POST['tambah'] ) ) {
+  $nama_ alat = $_POST['nama_alat'] ;
+  $kategori = $_POST['kategori'] ;
+  $stok= $_POST['stok'] ;
+  $kondisi = $_POST['kondisi] ;
+
+mysqli_query($koneksi, "
+INSERT INTO alat(nama_ alat , id_ kategori , stok , kondisi)
+VALUES ('$nama_alat' ,'$kategori' ,'$ stok', ' kondisi')" );
+echo" <script>"
+alert(' data berhasil di simpan');
+window.location= ' alat.php' ;
+</script>;
+  
+}
+// Fungsi hapus
+If ( isset($_GET[' hapus' ] ) ) {
+$id = $_GET [ ' hapus ' ] ;
+mysqli_ query ( $koneksi, "
+DELETE FROM alat WHERE id_ alat ='$id' ") ;
+echo" <script>"
+alert(' data berhasil di hapus');
+window.location= ' alat.php' ;
+</script> " ;
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -37,14 +63,17 @@
                 <div class="mb-3">
                     <label class="form-label">Kategori</label>
                     <select name="kategori" class="form-control" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="Elektronik">Elektronik</option>
-                        <option value="Alat Tulis">Alat Tulis</option>
-                        <option value="Laboratorium">Laboratorium</option>
-                        <option value="Olahraga">Olahraga</option>
-                        <option value="Lainnya">Lainnya</option>
-                    </select>
-                </div>
+         <option value="">-- Pilih Kategori --</option>
+        <?php
+$ kategori = mysqli_query($ koneksi, "SELECT * FROM kategori");
+while($ data  = mysqli_ fetch_ assoc ($ kategori)) {
+?>
+<option value ="<?=$data[' id_ kategori'] ;"?> ">
+<? = $data [' nama_kategori' ];?>
+</option>
+<?phh } ?>
+                 </select>
+              </div>
 
                 <div class="mb-3">
                     <label class="form-label">Stok</label>
@@ -66,14 +95,10 @@
 
                
 
-                <button name="tambah" class="btn btn-primary">
-                    Tambah Alat
-                </button>
-
-                <a href="dashboard.php" class="btn btn-primary">back</a>
-
+         <button name="tambah" class="btn btn-primary">
+          Tambah Alat     </button>
+<a href="dashboard.php" class="btn btn-primary">back</a>
             </form>
-
         </div>
     </div>
 
@@ -105,13 +130,11 @@ while ($data = mysqli_fetch_assoc($query)) {
         <td><?= $data['nama_alat']; ?></td>
         <td><?= $data['nama_kategori']; ?></td>
         <td><?= $data['stok']; ?></td>
-        <!-- add other columns as needed -->
-    </tr>
-    <?php
+         <td><?= $data['kondisi']; ?></td>
+<td>
 }
-?>
-          <a href="edit.php?id=<?= $data['id_alat']; ?>" class="btn btn-warning btn-sm">Edit</a>
-            <a href="delete.php?id=<?= $data['id_alat']; ?>" 
+          <a href="edit_alat .php?id=<?= $data['id_alat']; ?>" class="btn btn-warning btn-sm">Edit</a>
+     <a href="delete.php?id=<?= $data['id_alat']; ?>" 
                class="btn btn-danger btn-sm"
                onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
         </td>
